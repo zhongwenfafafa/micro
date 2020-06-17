@@ -1,0 +1,7 @@
+[mysql]
+    [mysql.master]
+        driver = "mysql"
+        dsn = "root:123456@tcp(127.0.0.1:3306)/micro?charset=utf8mb4&parseTime=true&loc=Asia%2FChongqing"
+        max_open_conn = 20
+        max_idle_conn = 10
+        max_conn_life_time = 100

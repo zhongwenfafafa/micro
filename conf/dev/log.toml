@@ -1,0 +1,7 @@
+[log]
+    [log.sql]
+        filename = "test.log"
+        max_size = 1
+        max_backups = 5
+        max_age = 30
+        compress = false
