@@ -15,9 +15,6 @@ const SLAVE_DB_NAME = "slave"
 // mysql从库配置名称需要和conf db中设置保持同步
 const MASTER_DB_NAME = "master"
 
-// 项目运行绝对路径
-const BASE_PATH = ""
-
 const TIME_LOCATION = "Asia/Shanghai"
 
 // 分块上传文件目录
