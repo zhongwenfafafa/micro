@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/micro/go-micro"
 	"micro/bootstrap"
-	"micro/defind"
+	"micro/defined"
 	"micro/pkg"
 	"time"
 
@@ -15,7 +15,7 @@ import (
 func main() {
 	service := micro.NewService(
 		micro.Registry(pkg.RegistryConsul()),// 注册consul
-		micro.Name(defind.RPC_ACCOUNT_SERVICE_NAME),
+		micro.Name(defined.RPC_ACCOUNT_SERVICE_NAME),
 		micro.RegisterTTL(time.Second * 10),
 		micro.RegisterInterval(time.Second * 5),
 	)

@@ -1,9 +1,9 @@
 package dao
 
 import (
+	"context"
+	"micro/db"
 	"time"
-
-	"github.com/jinzhu/gorm"
 )
 
 type User struct {
@@ -20,12 +20,34 @@ func (user *User) TableName() string {
 	return "account"
 }
 
-func (u *User) Find(tx *gorm.DB, id int64) (*User, error) {
+// 根据id查找用户
+func (u *User)Find(ctx context.Context, id int64) (*User, error) {
 	user := &User{}
-	err := tx.Table(u.TableName()).Where("id=?", id).First(user).Error
+
+	tx, err := db.GetMasterDBConn(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	err = tx.Table(u.TableName()).Where("id=?", id).First(user).Error
 	if err != nil {
 		return nil,err
 	}
 
 	return user, nil
+}
+
+// 创建用户
+func (u *User)Create(ctx context.Context, user *User) error {
+	tx, err := db.GetMasterDBConn(ctx)
+	if err != nil {
+		return err
+	}
+
+	err = tx.Table(u.TableName()).Create(user).Error
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

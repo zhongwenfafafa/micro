@@ -9,7 +9,7 @@ import (
 
 	"github.com/spf13/viper"
 
-	"micro/defind"
+	"micro/defined"
 )
 
 var (
@@ -20,7 +20,7 @@ var (
 
 //初始化配置文件
 func InitViperConf() error {
-	basePath := ConfEnvPath + "/" + os.Getenv(defind.RUNTIME_ENV)
+	basePath := ConfEnvPath + "/" + os.Getenv(defined.RUNTIME_ENV)
 	f, err := os.Open(basePath + "/")
 	if err != nil {
 		return err

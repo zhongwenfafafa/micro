@@ -4,8 +4,9 @@ import (
 	"github.com/natefinch/lumberjack"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
+	"strings"
 
-	"micro/defind"
+	"micro/defined"
 
 	"fmt"
 	"os"
@@ -34,7 +35,7 @@ type LogConf struct {
 var logConfMap *LogMapConf
 
 func InitLogger() error {
-	env := os.Getenv(defind.RUNTIME_ENV)
+	env := os.Getenv(defined.RUNTIME_ENV)
 
 	logConfMap = &LogMapConf{}
 	err := GetConfig("log", logConfMap)
@@ -43,7 +44,7 @@ func InitLogger() error {
 	}
 
 	if len(logConfMap.Log) == 0 {
-		fmt.Printf("[INFO] %s%s\n", time.Now().Format(defind.TIME_FORMAT), " empty log config.")
+		fmt.Printf("[INFO] %s%s\n", time.Now().Format(defined.TIME_FORMAT), " empty log config.")
 	}
 
 	// 初始化日志
@@ -95,7 +96,7 @@ func logWriter(prefix string) zapcore.WriteSyncer {
 	sqlLogConf := logConfMap.Log["sql"]
 
 	hook := &lumberjack.Logger{
-		Filename:   prefix + sqlLogConf.Filename,
+		Filename:   "./runtime/" + strings.Trim(prefix, "/") + "/" + sqlLogConf.Filename,
 		MaxSize:    sqlLogConf.MaxSize,
 		MaxBackups: sqlLogConf.MaxBackups,
 		MaxAge:     sqlLogConf.MaxSize,

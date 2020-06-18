@@ -1,3 +1,3 @@
-package defind
+package defined
 
 const TRACE_KEY = "traceId"

@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"micro/defind"
+	"micro/defined"
 )
 
 const (
@@ -63,7 +63,7 @@ const (
 func RemovePathByShell(destPath string) (bool, error) {
 	cmdStr := strings.Replace(FileChunkDelCMD, "$1", destPath, 1)
 	cmdStr = strings.Replace(cmdStr, "#CHUNKDIR#",
-		defind.CHUNK_LOCAL_ROOT_DIR, 1)
+		defined.CHUNK_LOCAL_ROOT_DIR, 1)
 	delCmd := exec.Command("bash", "-c", cmdStr)
 
 	if _, err := delCmd.Output(); err != nil {

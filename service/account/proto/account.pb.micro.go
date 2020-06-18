@@ -34,7 +34,8 @@ var _ server.Option
 // Client API for AccountService service
 
 type AccountService interface {
-	SinIn(ctx context.Context, in *SinInRequest, opts ...client.CallOption) (*SinInResponse, error)
+	SignIn(ctx context.Context, in *SignInRequest, opts ...client.CallOption) (*SignInResponse, error)
+	SignUp(ctx context.Context, in *SignUpRequest, opts ...client.CallOption) (*SignUpResponse, error)
 }
 
 type accountService struct {
@@ -55,9 +56,19 @@ func NewAccountService(name string, c client.Client) AccountService {
 	}
 }
 
-func (c *accountService) SinIn(ctx context.Context, in *SinInRequest, opts ...client.CallOption) (*SinInResponse, error) {
-	req := c.c.NewRequest(c.name, "AccountService.SinIn", in)
-	out := new(SinInResponse)
+func (c *accountService) SignIn(ctx context.Context, in *SignInRequest, opts ...client.CallOption) (*SignInResponse, error) {
+	req := c.c.NewRequest(c.name, "AccountService.SignIn", in)
+	out := new(SignInResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountService) SignUp(ctx context.Context, in *SignUpRequest, opts ...client.CallOption) (*SignUpResponse, error) {
+	req := c.c.NewRequest(c.name, "AccountService.SignUp", in)
+	out := new(SignUpResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -68,12 +79,14 @@ func (c *accountService) SinIn(ctx context.Context, in *SinInRequest, opts ...cl
 // Server API for AccountService service
 
 type AccountServiceHandler interface {
-	SinIn(context.Context, *SinInRequest, *SinInResponse) error
+	SignIn(context.Context, *SignInRequest, *SignInResponse) error
+	SignUp(context.Context, *SignUpRequest, *SignUpResponse) error
 }
 
 func RegisterAccountServiceHandler(s server.Server, hdlr AccountServiceHandler, opts ...server.HandlerOption) error {
 	type accountService interface {
-		SinIn(ctx context.Context, in *SinInRequest, out *SinInResponse) error
+		SignIn(ctx context.Context, in *SignInRequest, out *SignInResponse) error
+		SignUp(ctx context.Context, in *SignUpRequest, out *SignUpResponse) error
 	}
 	type AccountService struct {
 		accountService
@@ -86,6 +99,10 @@ type accountServiceHandler struct {
 	AccountServiceHandler
 }
 
-func (h *accountServiceHandler) SinIn(ctx context.Context, in *SinInRequest, out *SinInResponse) error {
-	return h.AccountServiceHandler.SinIn(ctx, in, out)
+func (h *accountServiceHandler) SignIn(ctx context.Context, in *SignInRequest, out *SignInResponse) error {
+	return h.AccountServiceHandler.SignIn(ctx, in, out)
+}
+
+func (h *accountServiceHandler) SignUp(ctx context.Context, in *SignUpRequest, out *SignUpResponse) error {
+	return h.AccountServiceHandler.SignUp(ctx, in, out)
 }

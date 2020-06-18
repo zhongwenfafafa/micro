@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/prometheus/common/log"
-	"micro/bootstrap"
+	"log"
 
+	"micro/bootstrap"
 	"micro/router"
 )
 
@@ -15,4 +15,12 @@ func main() {
 	}
 
 	log.Fatal(router.Router().Run(":9999"))
+}
+
+func Str2DEC(s string) (num int) {
+	l := len(s)
+	for i := l - 1; i >= 0; i-- {
+		num += (int(s[l-i-1]) & 0xf) << uint8(i)
+	}
+	return
 }

@@ -1,4 +1,4 @@
-package modules
+package validate
 
 type Register struct {
 	Username string `validate:"required" comment:"用户名"`

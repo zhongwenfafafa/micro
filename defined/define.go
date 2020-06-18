@@ -1,4 +1,4 @@
-package defind
+package defined
 
 // 请求参数校验失败状态码
 const VALIDATE_ERROR_CODE = 10004

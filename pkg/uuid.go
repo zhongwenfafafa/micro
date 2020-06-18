@@ -4,11 +4,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"go.uber.org/zap"
-	"micro/defind"
+	"micro/defined"
 )
 
 func GinContextTraceID(c *gin.Context) {
-	c.Set(defind.TRACE_KEY, GenerateUUID())
+	c.Set(defined.TRACE_KEY, GenerateUUID())
 }
 
 // 生成唯一uuid
