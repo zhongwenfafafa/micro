@@ -1,4 +1,4 @@
-package defind
+package defined
 
 // 请求参数校验失败状态码
 const VALIDATE_ERROR_CODE = 10004
@@ -14,9 +14,6 @@ const SLAVE_DB_NAME = "slave"
 
 // mysql从库配置名称需要和conf db中设置保持同步
 const MASTER_DB_NAME = "master"
-
-// 项目运行绝对路径
-const BASE_PATH = ""
 
 const TIME_LOCATION = "Asia/Shanghai"
 

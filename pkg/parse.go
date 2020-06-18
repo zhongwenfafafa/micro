@@ -2,7 +2,7 @@ package pkg
 
 import (
 	"github.com/gin-gonic/gin"
-	"micro/defind"
+	"micro/defined"
 	"micro/response"
 	"net/http"
 )
@@ -13,7 +13,7 @@ func ParseRequest(c *gin.Context, request interface{}) error {
 	if err != nil {
 		c.JSON(http.StatusOK,
 			response.ErrorResponse{
-				Code:    defind.VALIDATE_ERROR_CODE,
+				Code:    defined.VALIDATE_ERROR_CODE,
 				Message: err.Error(),
 			})
 	}

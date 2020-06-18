@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/micro/go-micro"
 
-	"micro/defind"
+	"micro/defined"
 	"micro/pkg"
 	"micro/response"
 	"micro/service/account/proto"
@@ -28,10 +28,10 @@ func init() {
 
 	cli := service.Client()
 	accountCli = proto.NewAccountService(
-		defind.RPC_ACCOUNT_SERVICE_NAME, cli)
+		defined.RPC_ACCOUNT_SERVICE_NAME, cli)
 }
 
-// 登录接口
+// 注册接口
 func (account *Account) SinUpHandler(c *gin.Context) {
 	var (
 		req Register
@@ -45,9 +45,9 @@ func (account *Account) SinUpHandler(c *gin.Context) {
 	}
 
 	// 登录流程调用rpc服务
-	traceId, _ := c.Get(defind.TRACE_KEY)
+	traceId, _ := c.Get(defined.TRACE_KEY)
 
-	res, err := accountCli.SinIn(context.TODO(), &proto.SinInRequest{
+	res, err := accountCli.SignIn(context.TODO(), &proto.SignInRequest{
 		Username: req.Username,
 		Password: req.Password,
 		TranceId: traceId.(string),

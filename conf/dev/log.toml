@@ -1,6 +1,6 @@
 [log]
     [log.sql]
-        filename = "test.log"
+        filename = "runtime.log"
         max_size = 1
         max_backups = 5
         max_age = 30

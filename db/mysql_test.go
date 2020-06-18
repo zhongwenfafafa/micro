@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"log"
 	"micro/dao"
-	"micro/defind"
+	"micro/defined"
 	"micro/pkg"
 	"os"
 	"testing"
@@ -68,7 +68,7 @@ func SetUp(confPath string) {
 	}
 
 	// 设置时区
-	if _, err := time.LoadLocation(defind.TIME_LOCATION); err != nil {
+	if _, err := time.LoadLocation(defined.TIME_LOCATION); err != nil {
 		log.Printf("[ERR]  err=%s\n", err)
 	}
 

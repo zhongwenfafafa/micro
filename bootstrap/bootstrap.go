@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"micro/db"
-	"micro/defind"
+	"micro/defined"
 	"micro/pkg"
 )
 
@@ -37,18 +37,18 @@ func InitModule(confPath string) error {
 
 	// 加载mysql配置并初始化实例
 	if err := db.InitDBPool(); err != nil {
-		fmt.Printf("[ERROR] %s%s\n", time.Now().Format(defind.TIME_FORMAT), " InitDBPool:"+err.Error())
+		fmt.Printf("[ERROR] %s%s\n", time.Now().Format(defined.TIME_FORMAT), " InitDBPool:"+err.Error())
 		os.Exit(1)
 	}
 
 	// 加载logger配置并初始化实例
 	if err := pkg.InitLogger(); err != nil {
-		fmt.Printf("[ERROR] %s%s\n", time.Now().Format(defind.TIME_FORMAT), " InitLogger:"+err.Error())
+		fmt.Printf("[ERROR] %s%s\n", time.Now().Format(defined.TIME_FORMAT), " InitLogger:"+err.Error())
 		os.Exit(1)
 	}
 
 	// 设置时区
-	if _, err := time.LoadLocation(defind.TIME_LOCATION); err != nil {
+	if _, err := time.LoadLocation(defined.TIME_LOCATION); err != nil {
 		return err
 	}
 

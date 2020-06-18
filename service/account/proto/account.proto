@@ -2,7 +2,7 @@ syntax="proto3";
 
 package proto;
 
-message SinInRequest {
+message SignInRequest {
     string username = 1;
     string password = 2;
     string mobile = 3;
@@ -10,7 +10,7 @@ message SinInRequest {
     string trance_id = 5;
 }
 
-message SinInResponse {
+message SignInResponse {
     int32 code = 1;
     string message = 2;
     message SuccessData {
@@ -21,6 +21,19 @@ message SinInResponse {
     SuccessData data = 3;
 }
 
+message SignUpRequest {
+    string username = 1;
+    string password = 2;
+    string mobile = 3;
+    string trance_id = 4;
+}
+
+message SignUpResponse {
+    int32 code = 1;
+    string message = 2;
+}
+
 service AccountService {
-    rpc SinIn(SinInRequest) returns(SinInResponse){}
+    rpc SignIn(SignInRequest) returns(SignInResponse){}
+    rpc SignUp(SignUpRequest) returns(SignUpResponse){}
 }

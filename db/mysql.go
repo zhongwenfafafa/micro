@@ -9,7 +9,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 
-	"micro/defind"
+	"micro/defined"
 	"micro/pkg"
 )
 
@@ -37,7 +37,7 @@ func InitDBPool() error {
 	}
 
 	if len(mysqlMap.Mysql) == 0 {
-		fmt.Printf("[INFO] %s%s\n", time.Now().Format(defind.TIME_FORMAT), " empty mysql config.")
+		fmt.Printf("[INFO] %s%s\n", time.Now().Format(defined.TIME_FORMAT), " empty mysql config.")
 	}
 
 	dbPool = make(map[string]*gorm.DB)
@@ -74,7 +74,7 @@ func GetSlaveDBConn(ctx context.Context) (conn *gorm.DB, err error) {
 		return nil, errors.New("context not found traceId")
 	}
 
-	conn, err = pullConnInDBPool(defind.SLAVE_DB_NAME)
+	conn, err = pullConnInDBPool(defined.SLAVE_DB_NAME)
 	if err != nil {
 		return
 	}
@@ -85,12 +85,12 @@ func GetSlaveDBConn(ctx context.Context) (conn *gorm.DB, err error) {
 
 // 从db主库连接池中获取一个连接
 func GetMasterDBConn(ctx context.Context) (conn *gorm.DB, err error) {
-	traceId := ctx.Value(defind.TRACE_KEY)
+	traceId := ctx.Value(defined.TRACE_KEY)
 	if traceId == nil {
 		return nil, errors.New("context not found traceId")
 	}
 
-	conn, err = pullConnInDBPool(defind.MASTER_DB_NAME)
+	conn, err = pullConnInDBPool(defined.MASTER_DB_NAME)
 	if err != nil {
 		return
 	}
