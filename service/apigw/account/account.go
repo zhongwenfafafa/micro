@@ -59,7 +59,7 @@ func (account *Account) SinUpHandler(c *gin.Context) {
 		return
 	}
 
-	if res.Data == nil {
+	if res.Code == 10000 {
 		c.JSON(http.StatusOK,
 			response.NewErrorRes(res.Code, res.Message))
 		return
@@ -69,6 +69,37 @@ func (account *Account) SinUpHandler(c *gin.Context) {
 		response.NewSuccessRes(res.Code, res.Message, res.Data))
 }
 
+// 用户登陆接口
 func (account *Account) SignInHandler(c *gin.Context) {
+	var (
+		req SignIn
+		err error
+	)
 
+	err = pkg.ParseRequest(c, req)
+	if err != nil {
+		// TODO 记录系统运行异常日志
+		return
+	}
+
+	traceId, _ := c.Get(defined.TRACE_KEY)
+	res, err := accountCli.SignIn(context.TODO(), &proto.SignInRequest{
+		Username: req.Username,
+		Password: req.Password,
+		Mobile: req.Mobile,
+		VerifyCode: req.VerifyCode,
+		TranceId: traceId.(string),
+	})
+	if err != nil {
+		c.Status(http.StatusInternalServerError)
+		return
+	}
+
+	if res.Code != 10000 {
+		c.JSON(http.StatusOK,
+			response.NewErrorRes(res.Code, res.Message))
+	} else {
+		c.JSON(http.StatusOK,
+			response.NewSuccessRes(res.Code, res.Message, res.Data))
+	}
 }

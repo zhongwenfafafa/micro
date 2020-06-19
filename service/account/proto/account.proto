@@ -6,7 +6,7 @@ message SignInRequest {
     string username = 1;
     string password = 2;
     string mobile = 3;
-    int32 verify_code = 4;
+    string verify_code = 4;
     string trance_id = 5;
 }
 
